@@ -4,6 +4,7 @@ const initialState = {
      status: '',
      datas: [],
      page: 1,
+     show:false,
 }
 
 export const getData = createAsyncThunk('datas/getDatas', async (pageNumber) => {
@@ -21,6 +22,9 @@ const dataSlice = createSlice({
      reducers: {
           addPageNumber: (state) => {
                state.page = state.page +=1;
+          },
+          showModal:(state)=>{
+               state.show = !state.show;
           }
      },
      extraReducers: (builder) => {
@@ -38,6 +42,6 @@ const dataSlice = createSlice({
                });
      }
 })
-export const {addPageNumber}=dataSlice.actions;
+export const {addPageNumber,showModal}=dataSlice.actions;
 export default dataSlice.reducer;
 

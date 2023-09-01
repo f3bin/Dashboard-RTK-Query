@@ -2,12 +2,15 @@ import React from "react";
 import Card from "../card/Card";
 import "./Home.scss";
 import useHome from "./useHome";
+import Modals from "../modals/Modals";
 
 const Home = () => {
   const { datas, scrollableContainerRef, status, lengthStatus } = useHome();
-
+console.log(lengthStatus,"statuuuuusss")
   return (
+     
     <div className="home-container">
+     <Modals />
       <h1>Home</h1>
       <div className="cards-container" ref={scrollableContainerRef}>
         {datas?.map((item) => (
@@ -22,7 +25,7 @@ const Home = () => {
         </div>
       </div>
     </div>
-  );
+  ); 
 };
 
 export default Home;
