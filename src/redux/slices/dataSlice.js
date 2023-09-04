@@ -4,7 +4,8 @@ const initialState = {
      status: '',
      datas: [],
      page: 1,
-     show:false,
+     show: false,
+     noteUserId:0
 }
 
 export const getData = createAsyncThunk('datas/getDatas', async (pageNumber) => {
@@ -12,19 +13,20 @@ export const getData = createAsyncThunk('datas/getDatas', async (pageNumber) => 
      const response = await fetch(`http://localhost:3033/details/?_page=${pageNumber}&_limit=20`);
      const result = response.json();
      return result;
-
 });
-
 
 const dataSlice = createSlice({
      name: 'data',
      initialState,
      reducers: {
           addPageNumber: (state) => {
-               state.page = state.page +=1;
+               state.page = state.page += 1;
           },
-          showModal:(state)=>{
+          showModal: (state) => {
                state.show = !state.show;
+          },
+          setNoteUserId:(state,action) =>{
+               state.noteUserId = action.payload 
           }
      },
      extraReducers: (builder) => {
@@ -34,7 +36,7 @@ const dataSlice = createSlice({
                })
                .addCase(getData.fulfilled, (state, action) => {
                     state.status = 'success';
-                    state.datas = [...state.datas,...action.payload];
+                    state.datas = [...state.datas, ...action.payload];
                })
                .addCase(getData.rejected, (state, action) => {
                     state.status = 'failed';
@@ -42,6 +44,6 @@ const dataSlice = createSlice({
                });
      }
 })
-export const {addPageNumber,showModal}=dataSlice.actions;
+export const { addPageNumber, showModal,setNoteUserId } = dataSlice.actions;
 export default dataSlice.reducer;
 

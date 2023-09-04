@@ -6,7 +6,6 @@ import Modals from "../modals/Modals";
 
 const Home = () => {
   const { datas, scrollableContainerRef, status, lengthStatus } = useHome();
-console.log(lengthStatus,"statuuuuusss")
   return (
      
     <div className="home-container">
