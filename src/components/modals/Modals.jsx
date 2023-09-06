@@ -16,6 +16,7 @@ function Modals() {
     handleDeleteNote,
     show,
   } = useModals();
+  console.log(choosenUser,"choosenUser")
   return (
     <>
       <Modal

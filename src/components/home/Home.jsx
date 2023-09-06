@@ -5,7 +5,9 @@ import useHome from "./useHome";
 import Modals from "../modals/Modals";
 
 const Home = () => {
-  const { datas, scrollableContainerRef, status, lengthStatus } = useHome();
+  const { datas,details, scrollableContainerRef, status, lengthStatus } = useHome();
+  console.log(datas?.length,details?.length,"lengthdifference")
+  console.log(lengthStatus,"lengthStatus");
   return (
      
     <div className="home-container">

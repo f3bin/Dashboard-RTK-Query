@@ -180,7 +180,13 @@
       "id": 18,
       "name": "harry",
       "age": 31,
-      "notes": []
+      "notes": [
+        {
+          "id": "3a2d1e72-5025-4791-b4a1-5d40cd590530",
+          "content": "hello",
+          "status": "noted"
+        }
+      ]
     },
     {
       "id": 19,
