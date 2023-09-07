@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 const useModals = () => {
 
      const dispatch = useDispatch();
-     const { refetch, data: users } = useGetAllDetailsQuery();
+     const {  data: users , refetch } = useGetAllDetailsQuery();
      const { show, noteUserId } = useSelector((state) => state.data);
      const [addNotes] = useAddNotesMutation();
      const [updateNotes] = useUpdateNotesMutation();
