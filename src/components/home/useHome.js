@@ -1,13 +1,20 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getData } from "../../redux/slices/dataSlice";
+import { getPageData, getData } from "../../redux/slices/dataSlice";
 import { addPageNumber } from "../../redux/slices/dataSlice";
-import { useGetAllDetailsQuery } from "../../redux/queries/dataApi";
+// import { useGetAllDetailsQuery } from "../../redux/queries/dataApi";
 const useHome = () => {
-     const { data: details } = useGetAllDetailsQuery();
+     // const { data: details } = useGetAllDetailsQuery();
      const scrollableContainerRef = useRef(null);
      const dispatch = useDispatch();
-     const { datas, status, page } = useSelector((state) => state.data);
+     const { pageData:datas,data: details, status,page } = useSelector((state) => state.data);
+    
+
+     useEffect(() => {
+          dispatch(getData());
+          dispatch(getPageData(page));
+     }, [dispatch]);
+
      useEffect(() => {
           function checkScrollEnd() {
                const scrollableContainer = scrollableContainerRef.current;
@@ -33,23 +40,23 @@ const useHome = () => {
           };
      }, []);
 
-  
+
      const isMatched = (detailsLength, datasLength) => {
           console.log(detailsLength, datasLength, "values")
           return detailsLength === datasLength;
-        };
-        
-        const lengthStatus = useMemo(() => {
-          return isMatched(details?.length, datas?.length);
-        }, [ datas]);
-        
+     };
 
-        useEffect(() => {
-          !lengthStatus && dispatch(getData(page));
+     const lengthStatus = useMemo(() => {
+          return isMatched(details?.length, datas?.length);
+     }, [datas, details]);
+
+
+     useEffect(() => {
+          !lengthStatus && dispatch(getPageData(page));
      }, [page]);
 
 
-     return { datas, scrollableContainerRef, status, details, lengthStatus }
+     return { datas, scrollableContainerRef, status, details, lengthStatus,page }
 }
 
 export default useHome

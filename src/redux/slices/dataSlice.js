@@ -2,18 +2,36 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
      status: '',
-     datas: [],
+     pageData:[],
+     data:[],
      page: 1,
      show: false,
      noteUserId:0
 }
+export const getData = createAsyncThunk('datas/getData', async () => {
+     try {
+       const response = await fetch('http://localhost:3033/details');
+       const result = await response.json(); 
+       return result;
+     } catch (error) {
+      console.log(error)
+       throw error;
+     }
+   });
+   
+   export const getPageData = createAsyncThunk('datas/getPageDatas', async(pageNumber) => {
+     try {
+       await new Promise((resolve) => setTimeout(resolve, 1000));
+       const response = await fetch(`http://localhost:3033/details/?_page=${pageNumber}&_limit=20`);
+       const result = await response.json(); 
+       return result;
+     } catch (error) {
+       console.error(error); 
+       throw error; 
+     }
+   });
+   
 
-export const getData = createAsyncThunk('datas/getDatas', async (pageNumber) => {
-     await new Promise((resolve) => setTimeout(resolve, 1000));
-     const response = await fetch(`http://localhost:3033/details/?_page=${pageNumber}&_limit=20`);
-     const result = response.json();
-     return result;
-});
 
 const dataSlice = createSlice({
      name: 'data',
@@ -31,14 +49,25 @@ const dataSlice = createSlice({
      },
      extraReducers: (builder) => {
           builder
-               .addCase(getData.pending, (state) => {
+               .addCase(getPageData.pending, (state) => {
                     state.status = 'loading';
                })
-               .addCase(getData.fulfilled, (state, action) => {
+               .addCase(getPageData.fulfilled, (state, action) => {
                     state.status = 'success';
-                    state.datas = [...state.datas, ...action.payload];
+                    state.pageData = [...state.pageData, ...action.payload];
                })
-               .addCase(getData.rejected, (state, action) => {
+               .addCase(getPageData.rejected, (state, action) => {
+                    state.status = 'failed';
+                    state.error = action.error.message;
+               })
+               .addCase(getData.pending,(state)=>{
+                    state.status = 'loading';
+               })
+               .addCase(getData.fulfilled,(state,action)=>{
+                    state.status = 'success';
+                    state.data = action.payload;
+               })
+               .addCase(getData.rejected,(state,action)=>{
                     state.status = 'failed';
                     state.error = action.error.message;
                });
