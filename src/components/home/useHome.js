@@ -56,7 +56,7 @@ const useHome = () => {
      }, [page]);
 
 
-     return { datas, scrollableContainerRef, status, details, lengthStatus,page }
+     return { datas, scrollableContainerRef, status, lengthStatus }
 }
 
 export default useHome

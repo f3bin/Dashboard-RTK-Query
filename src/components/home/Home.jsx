@@ -3,14 +3,10 @@ import Card from "../card/Card";
 import "./Home.scss";
 import useHome from "./useHome";
 import Modals from "../modals/Modals";
-import { useSelector } from "react-redux";
 
 const Home = () => {
-  const { datas,details, scrollableContainerRef, status, lengthStatus,page } = useHome();
-  // const {page} =useSelector(state => state.data)
-  console.log(datas,details,"blahblahblahblahblahblahblahblahblah");
-  console.log(lengthStatus,"lengthStatus")
-  console.log(page,"page")
+  const { datas, scrollableContainerRef, status, lengthStatus } = useHome();
+  
   return (
      
     <div className="home-container">

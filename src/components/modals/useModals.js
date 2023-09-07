@@ -35,23 +35,27 @@ const useModals = () => {
           }));
      };
 
-     const handleAddNote = () => {
-          const updatedUser = {
-               ...choosenUser,
-               notes: [...choosenUser.notes, notes],
-          };
+     // const handleAddNote = () => {
+     //      const updatedUser = {
+     //           ...choosenUser,
+     //           notes: [...choosenUser.notes, notes],
+     //      };
 
-          addNotes(updatedUser).then((res) => {
-               if (res) {
-                    refetch();
-                    setNotes({
-                         id: "",
-                         content: "",
-                         status: "",
-                    });
-               }
-          });
-     };
+     //      addNotes(updatedUser).then((res) => {
+     //           if (res) {
+     //                refetch();
+     //                setNotes({
+     //                     id: "",
+     //                     content: "",
+     //                     status: "",
+     //                });
+     //           }
+     //      });
+     // };
+
+     const handleAddNote = () =>{
+          
+     }
 
      const handleClose = () => {
           dispatch(showModal());
